@@ -2,21 +2,64 @@
 <html>
 <head>
   <script src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
-  <script>tinymce.init({ selector:'textarea' });</script>
+
 </head>
 <body>
-  <textarea>Galaxy</textarea>
-  <textarea>Solar system</textarea>
+  <textarea id="galaxyContainer">Galaxy</textarea>
+  <textarea id="solarContainer">Solar system</textarea>
+  <button type="button" name="button" id='diffButton'>Diff Content</button>
+
+  <div id='res'></div>
+
+  <script type="text/javascript" src="./diffingFunction.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script type="text/javascript">
+    var getGalaxyContent;
+    var getSolarContent;
+
+    $(function(){
+      tinymce.init({
+        selector:'#galaxyContainer',
+        setup: function(editor) {
+          getGalaxyContent = editor;
+        }
+      });
+
+      tinymce.init({
+        selector:'#solarContainer',
+        setup: function(editor) {
+          getSolarContent = editor;
+        }
+      });
+
+      $('#diffButton').on('click', function(){
+        $('#res').html(diffString(
+          getGalaxyContent.getContent(),getSolarContent.getContent()
+        ));
+        console.log(getGalaxyContent.getContent(),getSolarContent.getContent())
+      })
+
+
+
+    })
+
+
+
+    // getGalaxyContent();
+    // var getGalaxyContent = function(){
+    //   console.log(galaxyEditor.getContent())
+    // }
+
+    // setInterval(getGalaxyContent,1000)
+  </script>
 
   <style>
     *{box-sizing: border-box;}
-    .mce-tinymce{ 
-      float:left; 
+    .mce-tinymce{
+      float:left;
       width: 48%;
       margin-right: 1%;
     }
-
-
   </style>
 
 </body>

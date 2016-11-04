@@ -1,32 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Document</title>
-</head>
-<body>
-
-<div class="app">
-  <label for="html">Text container1</label>
-  <textarea name="" id="html" cols="30" rows="20">
-  </textarea>
-  <label for="word">Text container2</label>
-  <textarea name="" id="word" cols="30" rows="20">
-  </textarea>
-</div>
-
-<script>
-  /*
- * Javascript Diff Algorithm
- *  By John Resig (http://ejohn.org/)
- *  Modified by Chu Alan "sprite"
- *
- * Released under the MIT license.
- *
- * More Info:
- *  http://ejohn.org/projects/javascript-diff-algorithm/
- */
-
 function escape(s) {
     var n = s;
     n = n.replace(/&/g, "&amp;");
@@ -176,15 +147,3 @@ function diff( o, n ) {
 
   return { o: o, n: n };
 }
-
-</script>
-
-<script>
-  document.body.innerHTML = diffString(
-    "The red brown fox jumped over the rolling log.",
-    "The brown spotted fox leaped over the rolling log"
-  );
-</script>
-
-</body>
-</html>
