@@ -5,11 +5,13 @@
 
 </head>
 <body>
-  <textarea id="galaxyContainer">Galaxy</textarea>
-  <textarea id="solarContainer">Solar system</textarea>
-  <button type="button" name="button" id='diffButton'>Diff Content</button>
+  <div class="appContainer">
+    <textarea id="galaxyContainer">Galaxy</textarea>
+    <textarea id="solarContainer">Solar system</textarea>
+    <button type="button" name="button" id='diffButton'>Diff Content</button>
 
-  <div id='res'></div>
+    <div id='res'></div>
+  </div>
 
   <script type="text/javascript" src="./diffingFunction.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -22,35 +24,34 @@
         selector:'#galaxyContainer',
         setup: function(editor) {
           getGalaxyContent = editor;
-        }
+        },
+        plugins: "paste",
+        menubar: "edit",
+        // paste_remove_styles: true,
+        // paste_strip_class_attributes: 'all',
+        // paste_word_valid_elements: "b,strong,i,em,h1,h2,h3,h4,h5"
       });
 
       tinymce.init({
         selector:'#solarContainer',
         setup: function(editor) {
           getSolarContent = editor;
-        }
+        },
+        plugins: "paste",
+        menubar: "edit",
+        // paste_remove_styles: true,
+        // paste_strip_class_attributes: 'all',
+        // paste_word_valid_elements: "b,strong,i,em,h1,h2,h3,h4,h5"
       });
 
       $('#diffButton').on('click', function(){
         $('#res').html(diffString(
           getGalaxyContent.getContent(),getSolarContent.getContent()
         ));
-        console.log(getGalaxyContent.getContent(),getSolarContent.getContent())
+        console.log('galaxy: ' + getGalaxyContent.getContent());
+        console.log('solar: ' + getSolarContent.getContent())
       })
-
-
-
     })
-
-
-
-    // getGalaxyContent();
-    // var getGalaxyContent = function(){
-    //   console.log(galaxyEditor.getContent())
-    // }
-
-    // setInterval(getGalaxyContent,1000)
   </script>
 
   <style>
