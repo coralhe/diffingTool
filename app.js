@@ -49,7 +49,7 @@
         }
         //replace &nbsp with  " "
         // $thisEle.html($thisEle.html().replace('&nbsp;', ' '))
-        console.log($thisEle.html())
+        // console.log($thisEle.html())
         //remove all the html attributes 
         var attributes = this.attributes;
         var i = attributes.length;
