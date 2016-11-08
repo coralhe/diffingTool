@@ -24,6 +24,8 @@
     contentDiff.cleanContent = function($rootContentEl){
 
       $rootContentEl.find('*').each(function(){
+
+
         var $thisEle = $(this)
         //remove spans
         if($thisEle.prop('tagName') ==='SPAN'){
@@ -45,6 +47,9 @@
         if($.trim($thisEle.text()) === ''){
           $thisEle.remove()
         }
+        //replace &nbsp with  " "
+        // $thisEle.html($thisEle.html().replace('&nbsp;', ' '))
+        console.log($thisEle.html())
         //remove all the html attributes 
         var attributes = this.attributes;
         var i = attributes.length;
