@@ -49,7 +49,7 @@
         }
         //replace &nbsp with  " "
         // $thisEle.html($thisEle.html().replace('&nbsp;', ' '))
-        console.log($thisEle.html())
+        //console.log($thisEle.html())
         //remove all the html attributes 
         var attributes = this.attributes;
         var i = attributes.length;
@@ -62,6 +62,27 @@
 
     contentDiff.init();
 
+    function plaintextEncodeContentFormatting($el, strong, em){
+      var curFormatting = '';
+      var curContents = $el.contents('');
+      var output = '';
+      for(var x = 0; x < curContents.length; x++){
+        if(curContents[x].nodeType === 3){
+          output += curContents[x].nodeValue.replace(/([^\s])/g, (strong?'s':'.') + (em?'e':'.') + '$1');
+        }
+        else{
+          if(curContents[x].tagName === 'EM'){
+            output += plaintextEncodeContentFormatting($(curContents[x]), strong, true);
+          }else if(curContents[x].tagName === 'STRONG'){
+            output += plaintextEncodeContentFormatting($(curContents[x]), true, em);
+          }else{
+            output += plaintextEncodeContentFormatting($(curContents[x]), strong, em);
+          }
+        }
+      }
+      return output.replace(/\s+$/, '');
+    }
+
     $('#diffButton').on('click', function(){
 
       var $rootCodedeckContentEl = $('<div>' + contentDiff.getcodedeckContent.getContent() + '</div>');
@@ -69,13 +90,16 @@
 
       contentDiff.cleanContent($rootCodedeckContentEl);
       contentDiff.cleanContent($roothtmlContentEl);
+
+      var diff = diffString(
+        plaintextEncodeContentFormatting($($rootCodedeckContentEl[0].innerHTML)),
+        plaintextEncodeContentFormatting($($roothtmlContentEl[0].innerHTML))
+      );
+
+      $('#res').html(diff);
       
-      $('#res').html(diffString(
-        $rootCodedeckContentEl[0].innerHTML,$roothtmlContentEl[0].innerHTML
-      ));
-      
-      console.log('codedeck: ' + $rootCodedeckContentEl[0].innerHTML );
-      console.log('html: ' + $roothtmlContentEl[0].innerHTML)
+      //console.log('codedeck: ' + $rootCodedeckContentEl[0].innerHTML );
+      //console.log('html: ' + $roothtmlContentEl[0].innerHTML)
     })
 
   })
